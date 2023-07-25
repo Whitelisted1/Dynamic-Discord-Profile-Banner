@@ -1,9 +1,9 @@
 # Discord User SVG Creator
 * Discord SVG Creator is a web app that allows you to show your discord profile as an SVG for use in a readme, as an example.
-* The main benefit is that, with this web app, you no longer have to update an image whenever you change your handle, display name, profile picture, etc.
+* The main benefit is that, with this web app, you no longer have to update an image or link whenever you change your handle, display name, profile picture, etc.
 
 ## Example usage
-The below SVG is from the webserver, which allows you to see my handle, display name, etc.
+The below SVG of my Discord Profile is from the webserver. It allows you to see my handle, display name, and more without me having to update the information whenever my profile changes 
 
 <a href="https://discord.com/invite/TPFR8T5JG4">
     <img src="https://discordsvgcreator.pythonanywhere.com/getUserProfile/513501267377782791?">
@@ -16,4 +16,4 @@ The below SVG is from the webserver, which allows you to see my handle, display 
 * Also note that it can take up to a day for the cache to update
 
 ## How does it work?
-* The program works with Discord's developer API which allows us to fetch information about a user from their ID.
+* The program works with Discord's developer API which allows us to fetch information about a user from their ID
