@@ -44,9 +44,6 @@ def home(userID):
     text = text.replace("{{BASE64_ENCODED_PFP}}", base64_decoded)
     text = text.replace("{{DISCORD_DISPLAY_NAME}}", user.displayname).replace("{{DISCORD_USERNAME}}", user.username).replace("{{DISCORD_ID}}", user.id)
 
-    # <image x="0" y="y" width="340px" height="48px" clip-path="url(#bannerClip)" href="data:image/webp;base64,{{BASE64_ENCODED_PROFILE_BANNER}}"></image>
-    # <rect x="0" y="y" width="340px" height="48px" clip-path="url(#bannerClip)" fill="{{DISCORD_BANNER_COLOR}}"></rect>
-
     if user.banner is None:
         text = text.replace("{{DISCORD_PROFILE_BANNER}}", f'<rect x="0" y="y" width="340px" height="48px" clip-path="url(#bannerClip)" fill="{user.banner_color}"></rect>')
     else:
@@ -93,8 +90,11 @@ def home(userID):
     
     response.headers['Content-Type'] = 'image/svg+xml'  # Set the correct Content-Type
 
-    time_until_expiration = user.expires_at - time()
-    response.headers['Cache-Control'] = f'max-age={time_until_expiration}' # Tell the website to not clear cache until we clear ours
+    # time_until_expiration = user.expires_at - time()
+    # response.headers['Cache-Control'] = f'max-age={time_until_expiration}' # Tell the website to not clear cache until we clear ours
+
+    response.headers['Cache-Control'] = 'max-age=0, no-cache, no-store, must-revalidate'
+
     return response
 
 if __name__ == "__main__":

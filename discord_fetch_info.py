@@ -29,7 +29,8 @@ def send_user_info_request(userID):
     return r.json()
 
 class cache:
-    cache_time = 60 * 60 * 24 # 1 day
+    cache_time = 60 * 60 # 1 hour
+    # cache_time = 60 * 60 * 24 # 1 day
     local_cache = {}
 
     def add_to_cache(userID, value):
