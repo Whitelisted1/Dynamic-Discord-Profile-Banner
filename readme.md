@@ -11,7 +11,9 @@ The below SVG is from the webserver, which allows you to see my handle, display 
 
 ## How to use
 * In order to use this, all you have to do is link to the web URL in your readme, or other source. Follow this template:
-    `https://discordsvgcreator.pythonanywhere.com/getUserProfile/<userid>`
+    `https://discordsvgcreator.pythonanywhere.com/getUserProfile/<userid>?`
+* Please note that the `?` at the end of the URL is necessary, at least from my testing in order to update Github's cache
+* Also note that it can take up to a day for the cache to update
 
 ## How does it work?
 * The program works with Discord's developer API which allows us to fetch information about a user from their ID.
