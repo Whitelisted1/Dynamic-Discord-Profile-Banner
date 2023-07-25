@@ -1,0 +1,40 @@
+<svg width="340" height="120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <style>
+    text {
+        font-family: system-ui,sans-serif;
+    }
+
+    #profileBanner {
+        width: 100%;
+        object-fill: cover;
+    }
+  </style>
+    <defs>
+        <rect id="bannerClipRect" x="0" y="0" width="340px" height="55px" rx="10px"/>
+        <clipPath id="bannerClip">
+            <use xlink:href="#bannerClipRect"/>
+        </clipPath>
+    </defs>
+    <use xlink:href="#bannerClipRect" stroke="none" fill="none"/>
+    {{DISCORD_PROFILE_BANNER}}
+  
+    <path d="M0,48 h340 v62 a10,10 0 0 1 -10,10 h-320 a10,10 0 0 1 -10,-10 v-62 z" fill="#2b2d31" stroke="none"/>
+
+    <defs>
+        <rect id="pfpClipRect" x="10" y="58" width="48px" height="48px" rx="48px"/>
+        <clipPath id="pfpClip">
+            <use xlink:href="#pfpClipRect"/>
+        </clipPath>
+    </defs>
+    <use xlink:href="#pfpClipRect" stroke="none" fill="none"/>
+
+    <image x="10" y="58" height="48px" width="48px" clip-path="url(#pfpClip)" href="data:image/webp;base64,{{BASE64_ENCODED_PFP}}"></image>
+
+    <text x="70" y="78" fill="white">{{DISCORD_DISPLAY_NAME}}</text>
+    <text x="70" y="95" fill="rgb(155, 155, 155)" font-size="12">{{DISCORD_USERNAME}}</text>
+
+    {{PROFILE_BADGES}}
+
+    <text x="97%" y="90%" text-anchor="end" dominant-baseline="middle" font-size="12" fill="rgb(155, 155, 155)">{{DISCORD_ID}}</text>
+</svg>
