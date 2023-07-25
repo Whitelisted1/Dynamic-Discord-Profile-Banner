@@ -5,7 +5,7 @@
 ## Example usage
 The below SVG is from the webserver, which allows you to see my handle, display name, etc.
 
-<a href="https://discord.com/invite/TPFR8T5JG4" target="_blank">
+<a target="_blank" href="https://discord.com/invite/TPFR8T5JG4">
     <img src="https://discordsvgcreator.pythonanywhere.com/getUserProfile/513501267377782791">
 </a>
 
