@@ -1,36 +1,40 @@
 import requests
-from time import time
+from time import time, sleep
 
 DISCORD_BOT_TOKEN = ""
-
-badgeNameToFileExtension = {
-    "STAFF": "png",
-    "PARTNER": "png",
-    "HYPESQUAD": "png",
-    "BUG_HUNTER_LEVEL_1": "png",
-    "HYPESQUAD_BRAVERY": "png",
-    "HYPESQUAD_BRILLIANCE": "png",
-    "HYPESQUAD_BALANCE": "png",
-    "PREMIUM_EARLY_SUPPORTER": "png",
-    "TEAM_PSEUDO_USER": "png",
-    "BUG_HUNTER_LEVEL_2": "png",
-    "VERIFIED_BOT": "svg",
-    "VERIFIED_DEVELOPER": "png",
-    "CERTIFIED_MODERATOR": "png",
-    "BOT_HTTP_INTERACTIONS": "png",
-    "ACTIVE_DEVELOPER": "png"
-}
 
 def send_user_info_request(userID):
     r = requests.get(f"https://discord.com/api/v9/users/{userID}", headers={
         "Authorization": f"Bot {DISCORD_BOT_TOKEN}"
     })
-    print(r.json())
-    return r.json()
+
+    json = r.json()
+
+    if r.status_code != 200:
+        print(r.headers)
+        print(r.status_code)
+        print(json)
+
+    if r.status_code == 400:
+        return { "error": { "text": "Invalid userID provided", "code": 400 } }
+
+    if r.status_code == 429:
+        print("Being rate limited, waiting for rate limit to refresh")
+        sleep(float(json['retry_after']))
+        print("Sending new request ...")
+        return send_user_info_request(userID)
+    
+    if r.status_code != 200:
+        if "code" in json:
+            return { "error": { "text": f"Unknown error, Discord gave error {json['code']}", "code": r.status_code } }
+        
+        return { "error": { "text": "Unknown error", "code": r.status_code } }
+    
+    return json
 
 class cache:
-    cache_time = 60 * 60 # 1 hour
-    # cache_time = 60 * 60 * 24 # 1 day
+    # cache_time = 60 * 60 # 1 hour
+    cache_time = 60 * 60 * 24 # 1 day
     local_cache = {}
 
     def add_to_cache(userID, value):
@@ -76,6 +80,9 @@ class discord_user:
         return self
     
     def get_user_badges(self):
+
+        # return ["STAFF", "PARTNER", "HYPESQUAD", "BUG_HUNTER_LEVEL_1", "HYPESQUAD_BRAVERY", "HYPESQUAD_BRILLIANCE", "HYPESQUAD_BALANCE", "PREMIUM_EARLY_SUPPORTER", "TEAM_PSEUDO_USER", "BUG_HUNTER_LEVEL_2", "VERIFIED_BOT", "VERIFIED_DEVELOPER", "CERTIFIED_MODERATOR", "BOT_HTTP_INTERACTIONS", "ACTIVE_DEVELOPER"]
+
         flags = self.public_flags
         tags = []
         
@@ -116,10 +123,16 @@ class discord_user:
         cached = cache.grab_from_cache(user_id)
 
         if cached is None:
-            return discord_user(send_user_info_request(user_id)).add_to_cache()
+            user_data = send_user_info_request(user_id)
+            if "error" in user_data:
+                return user_data
+
+            return discord_user(user_data).add_to_cache()
 
         return cached
 
-def get_user_data(userID:int):
-    a = discord_user.get_from_id(userID)
-    return a
+def get_user_data(userID):
+    try:
+        return discord_user.get_from_id(int(userID))
+    except:
+        return { "error": { "text": "Invalid userID provided", "code": 400 } }
