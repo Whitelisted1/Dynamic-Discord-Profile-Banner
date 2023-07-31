@@ -6,7 +6,7 @@
 The below SVG of my Discord Profile is from the webserver. It allows you to see my handle, display name, and more without me having to update the information whenever my profile changes
 
 <a href="https://discord.com/users/513501267377782791">
-    <img src="https://discordsvgcreator.pythonanywhere.com/getUserProfile/513501267377782791?">
+    <img src="https://discordsvgcreator.pythonanywhere.com/getUserProfile/513501267377782791?t=1">
 </a>
 
 ## How to use
