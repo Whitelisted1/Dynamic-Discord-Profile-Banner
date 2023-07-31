@@ -17,10 +17,10 @@ The below SVG of my Discord Profile is from the webserver. It allows you to see 
 
 ## URL parameters
 You are able to use the following settings in order to modify your response
-* showBadges: determines if the returned svg should the profile show the user's badges
-* showBanner: determines if the returned svg should the profile show the user's banner?
-* showID: determines if the returned svg should show the user's ID
-* showHandle: determines if the returned svg should show the user's handle
+* `showBadges`: determines if the returned svg should the profile show the user's badges
+* `showBanner`: determines if the returned svg should the profile show the user's banner?
+* `showID`: determines if the returned svg should show the user's ID
+* `showHandle`: determines if the returned svg should show the user's handle
 * Example: `https://discordsvgcreator.pythonanywhere.com/getUserProfile/513501267377782791?showBadges=false&showID=false`
 * Please note that all these parameters are assumed to be `true`. You must turn them off with the `false` value
 
