@@ -4,7 +4,7 @@ from os.path import dirname, join
 
 directory = dirname(__file__)
 
-f = open(join(directory, "token"), "r")
+f = open(join(directory, "token.txt"), "r")
 DISCORD_BOT_TOKEN = f.read()
 f.close()
 
