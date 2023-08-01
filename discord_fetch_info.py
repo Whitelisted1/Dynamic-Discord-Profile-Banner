@@ -1,7 +1,12 @@
 import requests
 from time import time, sleep
+from os.path import dirname, join
 
-DISCORD_BOT_TOKEN = ""
+directory = dirname(__file__)
+
+f = open(join(directory, "token"), "r")
+DISCORD_BOT_TOKEN = f.read()
+f.close()
 
 def send_user_info_request(userID):
     r = requests.get(f"https://discord.com/api/v9/users/{userID}", headers={
@@ -17,6 +22,9 @@ def send_user_info_request(userID):
 
     if r.status_code == 400:
         return { "error": { "text": "Invalid userID provided", "code": 400 } }
+    
+    if r.status_code == 401:
+        return { "error": { "text": "Server is unauthorized. Please contact me.", "code": 401 } }
 
     if r.status_code == 429:
         print("Being rate limited, waiting for rate limit to refresh")

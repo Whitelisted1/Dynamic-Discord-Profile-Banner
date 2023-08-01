@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, abort
+from flask import Flask, request, Response, abort, redirect
 from os.path import dirname, join, isdir, exists
 import requests
 import base64
@@ -31,6 +31,11 @@ def assets(path):
     response = add_cors_headers(response)
     return response
 
+@app.route("/")
+def home():
+    return '<html><body>Invalid request. Please view the <a href="https://github.com/Whitelisted1/Dynamic-Discord-Profile-Banner">Github Page</a>.</body></html>', 400
+    # return redirect("https://github.com/Whitelisted1/Dynamic-Discord-Profile-Banner")
+
 
 """
 Options:
@@ -40,7 +45,7 @@ showID: determines if the returned svg should show the user's ID
 showHandle: determines if the returned svg should show the user's handle
 """
 @app.route("/getUserProfile/<userID>", methods=["GET"])
-def home(userID):
+def getUserByID(userID):
     user = discord_fetch_info.get_user_data(userID)
     if type(user) == dict:
         return f'<svg width="340" height="120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><text x="0" y="16">{user["error"]["text"]}</text></svg>', 400
