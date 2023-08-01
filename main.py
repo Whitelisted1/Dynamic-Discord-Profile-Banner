@@ -96,7 +96,11 @@ def getUserByID(userID):
         contents = f.read()
         f.close()
 
-        tagReplaceText += tag + contents.decode().replace("<svg", f'<svg x="{currentX}%" y="60"')
+        y = 60
+        if tag.startswith("HYPESQUAD"):
+            y = 62
+            
+        tagReplaceText += tag + contents.decode().replace("<svg", f'<svg x="{currentX}%" y="{y}"')
         currentX -= 7
     
     tagReplaceText = f'<rect x="{currentX+6}%" y="60" width="{(numTags * 24) + (6 * (numTags != 0))}px" height="24px" rx="4px" fill="#101215"/>' + tagReplaceText

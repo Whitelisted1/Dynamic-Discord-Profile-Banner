@@ -5,7 +5,7 @@ from os.path import dirname, join
 directory = dirname(__file__)
 
 f = open(join(directory, "token.txt"), "r")
-DISCORD_BOT_TOKEN = f.read()
+DISCORD_BOT_TOKEN = f.read().strip()
 f.close()
 
 def send_user_info_request(userID):
@@ -89,7 +89,7 @@ class discord_user:
     
     def get_user_badges(self):
 
-        # return ["STAFF", "PARTNER", "HYPESQUAD", "BUG_HUNTER_LEVEL_1", "HYPESQUAD_BRAVERY", "HYPESQUAD_BRILLIANCE", "HYPESQUAD_BALANCE", "PREMIUM_EARLY_SUPPORTER", "TEAM_PSEUDO_USER", "BUG_HUNTER_LEVEL_2", "VERIFIED_BOT", "VERIFIED_DEVELOPER", "CERTIFIED_MODERATOR", "BOT_HTTP_INTERACTIONS", "ACTIVE_DEVELOPER"]
+        return ["STAFF", "PARTNER", "HYPESQUAD", "BUG_HUNTER_LEVEL_1", "HYPESQUAD_BRAVERY", "HYPESQUAD_BRILLIANCE", "HYPESQUAD_BALANCE", "PREMIUM_EARLY_SUPPORTER", "TEAM_PSEUDO_USER", "BUG_HUNTER_LEVEL_2", "VERIFIED_BOT", "VERIFIED_DEVELOPER", "CERTIFIED_MODERATOR", "BOT_HTTP_INTERACTIONS", "ACTIVE_DEVELOPER"]
 
         flags = self.public_flags
         tags = []
