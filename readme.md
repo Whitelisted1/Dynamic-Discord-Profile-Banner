@@ -1,5 +1,5 @@
-# Discord Profile Image Creator (DPIC)
-* DPIC is a web app that allows you to show your discord profile as an SVG for use in a readme, as an example.
+# Dynamic Discord Profile Banner
+* Dynamic Discord Profile Banner is a web app that allows you to show your discord profile as an SVG for use in a readme, as an example.
 * The main benefit is that, with this web app, you no longer have to update an image or link whenever you change your handle, display name, profile picture, etc.
 
 ## Example usage
