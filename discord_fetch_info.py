@@ -1,6 +1,7 @@
 import requests
 from time import time, sleep
 from os.path import dirname, join
+import traceback
 
 directory = dirname(__file__)
 
@@ -13,12 +14,15 @@ def send_user_info_request(userID):
         "Authorization": f"Bot {DISCORD_BOT_TOKEN}"
     })
 
-    json = r.json()
+    try:
+        jsonDecoded = r.json()
+    except:
+        return { "error": { "text": "Unknown error", "code": r.status_code } }
 
     if r.status_code != 200:
         print(r.headers)
         print(r.status_code)
-        print(json)
+        print(jsonDecoded)
 
     if r.status_code == 400:
         return { "error": { "text": "Invalid userID provided", "code": 400 } }
@@ -28,17 +32,17 @@ def send_user_info_request(userID):
 
     if r.status_code == 429:
         print("Being rate limited, waiting for rate limit to refresh")
-        sleep(float(json['retry_after']))
+        sleep(float(jsonDecoded['retry_after']))
         print("Sending new request ...")
         return send_user_info_request(userID)
     
     if r.status_code != 200:
-        if "code" in json:
-            return { "error": { "text": f"Unknown error, Discord gave error {json['code']}", "code": r.status_code } }
+        if "code" in jsonDecoded:
+            return { "error": { "text": f"Unknown error, Discord gave error {jsonDecoded['code']}", "code": r.status_code } }
         
         return { "error": { "text": "Unknown error", "code": r.status_code } }
     
-    return json
+    return jsonDecoded
 
 class cache:
     # cache_time = 60 * 60 # 1 hour
@@ -46,11 +50,13 @@ class cache:
     local_cache = {}
 
     def add_to_cache(userID, value):
+        userID = str(userID)
         value.expires_at = time() + cache.cache_time
         # value.expires_at = time() + 1
         cache.local_cache[userID] = value
     
     def grab_from_cache(userID):
+        userID = str(userID)
         if userID not in cache.local_cache:
             return None
         
@@ -143,4 +149,5 @@ def get_user_data(userID):
     try:
         return discord_user.get_from_id(int(userID))
     except:
+        print(traceback.format_exc())
         return { "error": { "text": "Invalid userID provided", "code": 400 } }
